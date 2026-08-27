@@ -100,7 +100,7 @@ function CataloguePage() {
 
   return (
     <Layout>
-      <section className="mx-auto w-full max-w-7xl px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8">
+      {/* <section className="mx-auto w-full max-w-7xl px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8">
         <div className="relative min-h-[34rem] overflow-hidden rounded-[2rem] sm:min-h-[39rem] lg:rounded-[2.75rem]">
           <img
             src={heroImage}
@@ -132,7 +132,7 @@ function CataloguePage() {
             </a>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section id="produits" className="scroll-mt-32 pt-16 sm:pt-20">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
