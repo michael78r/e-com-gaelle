@@ -25,13 +25,7 @@ export function ItemCard({ item }: { item: Item }) {
           </div>
         )}
 
-        <span
-          className={
-            inStock
-              ? "absolute inset-x-2.5 bottom-2.5 rounded-xl bg-primary/90 px-3 py-2 text-center text-[0.65rem] font-semibold text-primary-foreground backdrop-blur"
-              : "absolute inset-x-2.5 bottom-2.5 rounded-xl bg-foreground/85 px-3 py-2 text-center text-[0.65rem] font-semibold text-background backdrop-blur"
-          }
-        >
+        <span className="absolute inset-x-2.5 bottom-2.5 rounded-xl bg-accent/95 px-3 py-2 text-center text-[0.65rem] font-semibold text-accent-foreground backdrop-blur">
           {inStock ? "Disponible" : "Indisponible pour le moment"}
         </span>
       </div>
