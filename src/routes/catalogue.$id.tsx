@@ -63,8 +63,8 @@ function ItemPage() {
   if (itemQuery.isLoading) {
     return (
       <Layout>
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2">
-          <div className="shimmer aspect-4/5 w-full rounded-3xl" />
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+          <div className="shimmer aspect-square w-full rounded-[2rem]" />
           <div className="space-y-4">
             <div className="shimmer h-4 w-24 rounded-full" />
             <div className="shimmer h-9 w-3/4 rounded-full" />
@@ -80,7 +80,7 @@ function ItemPage() {
   if (!item) {
     return (
       <Layout>
-        <div className="mx-auto max-w-6xl px-4 py-24 text-center sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 py-24 text-center sm:px-6 lg:px-8">
           <h1 className="font-display text-2xl">Ce produit n'existe plus</h1>
           <Button asChild className="mt-6 rounded-full">
             <Link to="/catalogue" search={{ category: "", q: "", page: 1 }}>
@@ -94,18 +94,23 @@ function ItemPage() {
 
   return (
     <Layout>
-      <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <div className="mx-auto w-full max-w-7xl px-4 py-7 sm:px-6 sm:py-10 lg:px-8">
         <Breadcrumb item={item} />
 
-        <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-14">
+        <div className="mt-6 grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-8">
           <Gallery images={item.images} name={item.name} />
           <InfoColumn item={item} />
         </div>
 
         {(relatedQuery.data?.length ?? 0) > 0 && (
-          <section className="mt-20">
-            <h2 className="font-display text-2xl">Vous aimerez aussi</h2>
-            <div className="stagger mt-6 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+          <section className="mt-24 border-t border-border pt-10">
+            <p className="text-[0.68rem] font-bold tracking-[0.22em] text-muted-foreground uppercase">
+              Continuer la découverte
+            </p>
+            <h2 className="mt-2 font-display text-3xl font-bold tracking-[-0.04em] sm:text-4xl">
+              Vous aimerez aussi
+            </h2>
+            <div className="stagger mt-7 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-4">
               {relatedQuery.data?.map((related) => (
                 <ItemCard key={related.id} item={related} />
               ))}
@@ -120,7 +125,7 @@ function ItemPage() {
 function Breadcrumb({ item }: { item: Item }) {
   return (
     <nav aria-label="Fil d'Ariane">
-      <ol className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
+      <ol className="flex flex-wrap items-center gap-1.5 text-[0.68rem] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
         <li>
           <Link
             to="/catalogue"
@@ -156,12 +161,12 @@ function Gallery({ images, name }: { images: string[]; name: string }) {
 
   return (
     <div className="space-y-3">
-      <div className="surface aspect-4/5 overflow-hidden rounded-3xl bg-metal-gradient">
+      <div className="product-placeholder aspect-square overflow-hidden rounded-[2rem]">
         {current ? (
           <img src={current} alt={name} className="h-full w-full object-cover" />
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center gap-2">
-            <ImageOff className="h-8 w-8 text-sage-deep/40" aria-hidden="true" />
+            <ImageOff className="h-8 w-8 text-primary/35" aria-hidden="true" />
             <span className="text-xs text-muted-foreground">Photo à venir</span>
           </div>
         )}
@@ -178,8 +183,8 @@ function Gallery({ images, name }: { images: string[]; name: string }) {
               aria-current={index === active}
               className={
                 index === active
-                  ? "h-16 w-16 overflow-hidden rounded-xl border-2 border-clay"
-                  : "h-16 w-16 overflow-hidden rounded-xl border border-border opacity-75 transition-opacity hover:opacity-100"
+                  ? "h-16 w-16 overflow-hidden rounded-xl border-2 border-accent"
+                  : "h-16 w-16 overflow-hidden rounded-xl border border-border opacity-65 transition-opacity hover:opacity-100"
               }
             >
               {urls[index] ? (
@@ -201,57 +206,73 @@ function Gallery({ images, name }: { images: string[]; name: string }) {
 }
 
 function InfoColumn({ item }: { item: Item }) {
-  return (
-    <div className="lg:sticky lg:top-24 lg:self-start">
-      <span className="eyebrow text-clay-deep">{categoryLabel(item.category)}</span>
-      <h1 className="balance mt-2 font-display text-3xl leading-tight sm:text-4xl">{item.name}</h1>
+  const inStock = item.available && item.stock > 0;
 
-      <div className="mt-4 flex flex-wrap items-center gap-3">
-        <span className="text-2xl font-semibold">{formatPrice(item.price)}</span>
+  return (
+    <div className="rounded-[2rem] bg-primary p-6 text-primary-foreground sm:p-8 lg:sticky lg:top-32 lg:self-start lg:p-10">
+      <span className="inline-flex rounded-full border border-primary-foreground/20 px-3 py-1.5 text-[0.62rem] font-bold tracking-[0.18em] text-primary-foreground/70 uppercase">
+        {categoryLabel(item.category)}
+      </span>
+      <h1 className="balance mt-5 font-display text-4xl leading-[0.98] font-bold tracking-[-0.05em] sm:text-5xl">
+        {item.name}
+      </h1>
+
+      <div className="mt-7 flex flex-wrap items-center gap-3 border-y border-primary-foreground/15 py-5">
+        <span className="text-3xl font-extrabold">{formatPrice(item.price)}</span>
         <span
           className={
-            item.available && item.stock > 0
-              ? "rounded-full bg-sage-light px-3 py-1 text-xs font-semibold text-sage-shadow"
-              : "rounded-full bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground"
+            inStock
+              ? "rounded-full bg-primary-foreground/15 px-3 py-1 text-xs font-semibold text-primary-foreground"
+              : "rounded-full bg-primary-foreground/10 px-3 py-1 text-xs font-semibold text-primary-foreground/55"
           }
         >
-          {item.available && item.stock > 0
-            ? `Disponible · ${item.stock} en stock`
-            : "Indisponible pour le moment"}
+          {inStock ? `Disponible · ${item.stock} en stock` : "Indisponible pour le moment"}
         </span>
       </div>
 
       {item.description && (
-        <p className="mt-5 leading-relaxed text-muted-foreground">{item.description}</p>
+        <p className="mt-6 leading-7 text-primary-foreground/70">{item.description}</p>
       )}
 
-      <Button
-        asChild
-        size="lg"
-        className="mt-8 w-full rounded-full"
-        disabled={!item.available || item.stock === 0}
-      >
-        <a href={whatsappOrderLink(item.name, item.price)} target="_blank" rel="noreferrer">
+      {inStock ? (
+        <Button
+          asChild
+          size="lg"
+          className="mt-8 w-full rounded-full bg-background text-foreground hover:bg-background/90"
+        >
+          <a href={whatsappOrderLink(item.name, item.price)} target="_blank" rel="noreferrer">
+            <MessageCircle className="h-5 w-5" aria-hidden="true" />
+            Commander sur WhatsApp
+          </a>
+        </Button>
+      ) : (
+        <Button
+          size="lg"
+          className="mt-8 w-full rounded-full bg-primary-foreground/10 text-primary-foreground/50"
+          disabled
+        >
           <MessageCircle className="h-5 w-5" aria-hidden="true" />
-          Commander sur WhatsApp
-        </a>
-      </Button>
-      <p className="mt-2 text-center text-xs text-muted-foreground">
+          Produit indisponible
+        </Button>
+      )}
+      <p className="mt-3 text-center text-xs text-primary-foreground/50">
         Le message est pré-rempli avec le nom du produit.
       </p>
 
-      <div className="surface mt-8 space-y-3 p-5">
-        <h2 className="eyebrow text-clay-deep">Une question ?</h2>
+      <div className="mt-8 space-y-3 border-t border-primary-foreground/15 pt-6">
+        <h2 className="text-[0.65rem] font-bold tracking-[0.2em] text-primary-foreground/55 uppercase">
+          Une question ?
+        </h2>
         <a
           href={CONTACT.phoneHref}
-          className="link-underline flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+          className="flex items-center gap-2 text-sm text-primary-foreground/70 transition-colors hover:text-primary-foreground"
         >
           <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
           {CONTACT.phone}
         </a>
         <a
           href={CONTACT.emailHref}
-          className="link-underline flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+          className="flex items-center gap-2 text-sm text-primary-foreground/70 transition-colors hover:text-primary-foreground"
         >
           <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
           {CONTACT.email}
