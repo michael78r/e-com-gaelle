@@ -77,13 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Whisly — boutique gourmande" },
+      { title: "Wishly — boutique gourmande" },
       {
         name: "description",
         content:
-          "Whisly, boutique gourmande en ligne : chocolats, confitures, biscuits, boissons et produits d'épicerie.",
+          "Wishly, boutique gourmande en ligne : chocolats, confitures, biscuits, boissons et produits d'épicerie.",
       },
-      { property: "og:title", content: "Whisly — boutique gourmande" },
+      { property: "og:title", content: "Wishly — boutique gourmande" },
       {
         property: "og:description",
         content:

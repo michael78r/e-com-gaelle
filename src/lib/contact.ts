@@ -3,7 +3,7 @@
  * Modifier ici met à jour le header, le footer, la fiche produit et les CTA.
  */
 
-export const SITE_NAME = "Whisly";
+export const SITE_NAME = "Wishly";
 export const SITE_TAGLINE = "Boutique gourmande en ligne";
 
 export const CONTACT = {

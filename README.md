@@ -1,4 +1,4 @@
-# Whisly
+# Wishly
 
 Catalogue gourmand en ligne pour Madagascar. La boutique présente des chocolats, confitures,
 biscuits, boissons et produits d'épicerie, avec commande directe par WhatsApp.

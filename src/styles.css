@@ -6,7 +6,7 @@
 
 /*
  * ─────────────────────────────────────────────────────────────
- * Whisly — design system pour la boutique gourmande
+ * Wishly — design system pour la boutique gourmande
  * Palette : vert sauge & terracotta, sur fond de lin.
  * Toutes les couleurs sont en OKLCH.
  * ─────────────────────────────────────────────────────────────
@@ -316,7 +316,7 @@
 
 /* ── Animations ───────────────────────────────────────────── */
 
-@keyframes whisly-fade-up {
+@keyframes wishly-fade-up {
   from {
     opacity: 0;
     transform: translateY(14px);
@@ -327,7 +327,7 @@
   }
 }
 
-@keyframes whisly-shimmer {
+@keyframes wishly-shimmer {
   from {
     background-position: -160% 0;
   }
@@ -337,12 +337,12 @@
 }
 
 @utility fade-up {
-  animation: whisly-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: wishly-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @utility stagger {
   & > * {
-    animation: whisly-fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: wishly-fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
   & > *:nth-child(1) {
     animation-delay: 0.02s;
@@ -383,7 +383,7 @@
   );
   background-size: 200% 100%;
   background-repeat: no-repeat;
-  animation: whisly-shimmer 1.6s ease-in-out infinite;
+  animation: wishly-shimmer 1.6s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
