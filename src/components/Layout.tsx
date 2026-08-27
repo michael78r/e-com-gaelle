@@ -13,13 +13,6 @@ export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-xl">
-        <div className="bg-primary text-primary-foreground">
-          <div className="mx-auto flex h-7 w-full max-w-7xl items-center justify-between px-4 text-[0.62rem] font-semibold tracking-[0.16em] uppercase sm:px-6 lg:px-8">
-            <span>{CONTACT.city}</span>
-            <span className="hidden sm:inline">Commande directe par message</span>
-          </div>
-        </div>
-
         <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
           <Link
             to="/catalogue"
