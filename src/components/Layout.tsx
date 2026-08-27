@@ -9,7 +9,7 @@ import { CATEGORIES } from "@/lib/format";
 
 const NAV = [
   { to: "/catalogue", label: "Catalogue" },
-  { to: "/admin", label: "Administration" },
+  // { to: "/admin", label: "Administration" },
 ] as const;
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -88,12 +88,12 @@ export function Layout({ children }: { children: ReactNode }) {
                   </Link>
                 ))}
               </div>
-              <Button asChild className="mt-3 w-full rounded-full">
+              {/* <Button asChild className="mt-3 w-full rounded-full">
                 <a href={whatsappContactLink()} target="_blank" rel="noreferrer">
                   <MessageCircle className="h-4 w-4" aria-hidden="true" />
                   Nous écrire sur WhatsApp
                 </a>
-              </Button>
+              </Button> */}
             </nav>
           </div>
         )}
