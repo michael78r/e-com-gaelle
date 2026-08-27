@@ -5,14 +5,14 @@ import { Search, SlidersHorizontal, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 
-import heroImage from "@/assets/hero-whisly.jpg";
+import heroImage from "@/assets/hero-gourmand.jpg";
 import { ItemCard, ItemCardSkeleton } from "@/components/ItemCard";
 import { Layout } from "@/components/Layout";
 import { Pagination } from "@/components/Pagination";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SITE_NAME, SITE_TAGLINE } from "@/lib/contact";
-import { CATEGORIES, categoryLabel, formatNumber, pieceLabel } from "@/lib/format";
+import { CATEGORIES, categoryLabel, formatNumber, productLabel } from "@/lib/format";
 import { fetchCatalogue, PAGE_SIZE } from "@/lib/items";
 
 const searchSchema = z.object({
@@ -28,12 +28,12 @@ export const Route = createFileRoute("/catalogue/")({
       { title: `Catalogue — ${SITE_NAME}` },
       {
         name: "description",
-        content: `Parcourez le catalogue ${SITE_NAME} : mobilier, luminaires, textiles, vannerie et céramique. Commande par WhatsApp.`,
+        content: `Parcourez le catalogue gourmand ${SITE_NAME} : chocolats, confitures, biscuits, boissons et produits d'épicerie. Commande par WhatsApp.`,
       },
       { property: "og:title", content: `Catalogue — ${SITE_NAME}` },
       {
         property: "og:description",
-        content: `Mobilier, luminaires, textiles, vannerie et céramique. Commande par WhatsApp.`,
+        content: `Chocolats, confitures, biscuits, boissons et produits d'épicerie. Commande par WhatsApp.`,
       },
     ],
   }),
@@ -57,7 +57,7 @@ export const Route = createFileRoute("/catalogue/")({
 
 function CataloguePage() {
   const { category, q, page } = Route.useSearch();
-  const navigate = useNavigate({ from: "/catalogue" });
+  const navigate = useNavigate({ from: "/catalogue/" });
   const [term, setTerm] = useState(q);
 
   useEffect(() => {
@@ -105,10 +105,10 @@ function CataloguePage() {
             <div className="fade-up flex flex-col justify-center gap-4 p-6 sm:p-10 lg:p-14">
               <span className="eyebrow text-clay-deep">{SITE_TAGLINE}</span>
               <h1 className="balance font-display text-3xl leading-[1.1] sm:text-4xl lg:text-5xl">
-                Des objets choisis pour la maison, à commander en un message
+                Des saveurs à découvrir, à commander en un message
               </h1>
               <p className="max-w-md text-sm text-muted-foreground sm:text-base">
-                Parcourez le catalogue {SITE_NAME}, retenez la pièce qui vous plaît, puis
+                Parcourez le catalogue {SITE_NAME}, choisissez le produit qui vous plaît, puis
                 envoyez-nous un message WhatsApp pré-rempli depuis sa fiche.
               </p>
               <div className="flex flex-wrap gap-2 pt-2">
@@ -127,7 +127,7 @@ function CataloguePage() {
             <div className="relative min-h-56 overflow-hidden md:min-h-full">
               <img
                 src={heroImage}
-                alt="Vase en céramique vert sauge, panier tressé, coupe en terre cuite et plaid tissé posés sur une toile de lin"
+                alt="Assortiment gourmand de chocolats, confitures, miel, biscuits, café et épices"
                 width={1600}
                 height={1104}
                 className="h-full w-full object-cover"
@@ -148,7 +148,7 @@ function CataloguePage() {
             <Input
               value={term}
               onChange={(event) => setTerm(event.target.value)}
-              placeholder="Rechercher une pièce, une matière…"
+              placeholder="Rechercher un produit…"
               aria-label="Rechercher dans le catalogue"
               className="h-11 rounded-full pl-9"
             />
@@ -199,7 +199,7 @@ function CataloguePage() {
         <p className="mt-4 text-sm text-muted-foreground" aria-live="polite">
           {query.isLoading
             ? "Chargement du catalogue…"
-            : `${formatNumber(count)} ${pieceLabel(count)}`}
+            : `${formatNumber(count)} ${productLabel(count)}`}
           {category ? ` · ${categoryLabel(category)}` : ""}
           {q ? ` · « ${q} »` : ""}
         </p>
@@ -215,7 +215,7 @@ function CataloguePage() {
           </div>
         ) : count === 0 ? (
           <div className="surface mx-auto max-w-md px-6 py-14 text-center">
-            <h2 className="font-display text-xl">Aucune pièce ne correspond</h2>
+            <h2 className="font-display text-xl">Aucun produit ne correspond</h2>
             <p className="mt-2 text-sm text-muted-foreground">
               Essayez un autre mot-clé ou explorez toutes les catégories.
             </p>
@@ -225,7 +225,9 @@ function CataloguePage() {
           </div>
         ) : (
           <div className="stagger grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-            {query.data?.items.map((item) => <ItemCard key={item.id} item={item} />)}
+            {query.data?.items.map((item) => (
+              <ItemCard key={item.id} item={item} />
+            ))}
           </div>
         )}
       </section>

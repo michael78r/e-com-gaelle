@@ -14,15 +14,15 @@ import { fetchItem, fetchRelated, type Item } from "@/lib/items";
 export const Route = createFileRoute("/catalogue/$id")({
   head: () => ({
     meta: [
-      { title: `Fiche article — ${SITE_NAME}` },
+      { title: `Fiche produit — ${SITE_NAME}` },
       {
         name: "description",
-        content: `Détail d'une pièce du catalogue ${SITE_NAME} : matière, dimensions, disponibilité et commande par WhatsApp.`,
+        content: `Détail d'un produit du catalogue ${SITE_NAME} : description, disponibilité et commande par WhatsApp.`,
       },
-      { property: "og:title", content: `Fiche article — ${SITE_NAME}` },
+      { property: "og:title", content: `Fiche produit — ${SITE_NAME}` },
       {
         property: "og:description",
-        content: `Matière, dimensions, disponibilité et commande par WhatsApp.`,
+        content: `Description, disponibilité et commande par WhatsApp.`,
       },
     ],
   }),
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/catalogue/$id")({
   notFoundComponent: () => (
     <Layout>
       <div className="mx-auto max-w-6xl px-4 py-24 text-center sm:px-6">
-        <h1 className="font-display text-2xl">Article introuvable</h1>
+        <h1 className="font-display text-2xl">Produit introuvable</h1>
       </div>
     </Layout>
   ),
@@ -81,7 +81,7 @@ function ItemPage() {
     return (
       <Layout>
         <div className="mx-auto max-w-6xl px-4 py-24 text-center sm:px-6">
-          <h1 className="font-display text-2xl">Cet article n'existe plus</h1>
+          <h1 className="font-display text-2xl">Ce produit n'existe plus</h1>
           <Button asChild className="mt-6 rounded-full">
             <Link to="/catalogue" search={{ category: "", q: "", page: 1 }}>
               Retour au catalogue
@@ -106,7 +106,9 @@ function ItemPage() {
           <section className="mt-20">
             <h2 className="font-display text-2xl">Vous aimerez aussi</h2>
             <div className="stagger mt-6 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-              {relatedQuery.data?.map((related) => <ItemCard key={related.id} item={related} />)}
+              {relatedQuery.data?.map((related) => (
+                <ItemCard key={related.id} item={related} />
+              ))}
             </div>
           </section>
         )}
@@ -199,13 +201,6 @@ function Gallery({ images, name }: { images: string[]; name: string }) {
 }
 
 function InfoColumn({ item }: { item: Item }) {
-  const specs = [
-    { label: "Catégorie", value: categoryLabel(item.category) },
-    { label: "Matière", value: item.material },
-    { label: "Dimensions", value: item.dimensions },
-    { label: "Provenance", value: item.origin },
-  ].filter((spec) => spec.value);
-
   return (
     <div className="lg:sticky lg:top-24 lg:self-start">
       <span className="eyebrow text-clay-deep">{categoryLabel(item.category)}</span>
@@ -230,17 +225,6 @@ function InfoColumn({ item }: { item: Item }) {
         <p className="mt-5 leading-relaxed text-muted-foreground">{item.description}</p>
       )}
 
-      {specs.length > 0 && (
-        <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 border-t border-border pt-6 text-sm">
-          {specs.map((spec) => (
-            <div key={spec.label}>
-              <dt className="text-muted-foreground">{spec.label}</dt>
-              <dd className="mt-0.5 font-medium text-foreground">{spec.value}</dd>
-            </div>
-          ))}
-        </dl>
-      )}
-
       <Button
         asChild
         size="lg"
@@ -253,7 +237,7 @@ function InfoColumn({ item }: { item: Item }) {
         </a>
       </Button>
       <p className="mt-2 text-center text-xs text-muted-foreground">
-        Le message est pré-rempli avec le nom de l'article.
+        Le message est pré-rempli avec le nom du produit.
       </p>
 
       <div className="surface mt-8 space-y-3 p-5">

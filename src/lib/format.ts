@@ -26,27 +26,22 @@ export function formatDate(iso: string): string {
 }
 
 export type CategorySlug =
-  | "mobilier"
-  | "luminaires"
-  | "textiles"
-  | "vannerie"
-  | "céramique"
-  | "autres";
+  "chocolats" | "confitures" | "biscuits" | "boissons" | "epicerie" | "autres";
 
-export const CATEGORIES: { slug: CategorySlug; label: string }[] = [
-  { slug: "mobilier", label: "Mobilier" },
-  { slug: "luminaires", label: "Luminaires" },
-  { slug: "textiles", label: "Textiles" },
-  { slug: "vannerie", label: "Vannerie" },
-  { slug: "céramique", label: "Céramique" },
+export const CATEGORIES = [
+  { slug: "chocolats", label: "Chocolats" },
+  { slug: "confitures", label: "Confitures" },
+  { slug: "biscuits", label: "Biscuits" },
+  { slug: "boissons", label: "Boissons" },
+  { slug: "epicerie", label: "Épicerie" },
   { slug: "autres", label: "Autres" },
-];
+] as const satisfies readonly { slug: CategorySlug; label: string }[];
 
 export function categoryLabel(slug: string): string {
   return CATEGORIES.find((category) => category.slug === slug)?.label ?? slug;
 }
 
-/** Accorde le mot « pièce » selon le nombre. */
-export function pieceLabel(count: number): string {
-  return count > 1 ? "pièces disponibles" : "pièce disponible";
+/** Accorde le mot « produit » selon le nombre. */
+export function productLabel(count: number): string {
+  return count > 1 ? "produits disponibles" : "produit disponible";
 }

@@ -6,7 +6,7 @@
 
 /*
  * ─────────────────────────────────────────────────────────────
- * Whisly — design system
+ * Whisly — design system pour la boutique gourmande
  * Palette : vert sauge & terracotta, sur fond de lin.
  * Toutes les couleurs sont en OKLCH.
  * ─────────────────────────────────────────────────────────────
@@ -133,10 +133,10 @@
   );
 
   /* Ombres teintées de la marque, jamais du noir pur */
-  --shadow-soft-value: 0 1px 2px oklch(0.41 0.049 155 / 0.06),
-    0 8px 24px -12px oklch(0.41 0.049 155 / 0.18);
-  --shadow-lift-value: 0 2px 6px oklch(0.41 0.049 155 / 0.08),
-    0 22px 48px -20px oklch(0.41 0.049 155 / 0.32);
+  --shadow-soft-value:
+    0 1px 2px oklch(0.41 0.049 155 / 0.06), 0 8px 24px -12px oklch(0.41 0.049 155 / 0.18);
+  --shadow-lift-value:
+    0 2px 6px oklch(0.41 0.049 155 / 0.08), 0 22px 48px -20px oklch(0.41 0.049 155 / 0.32);
 }
 
 .dark {
@@ -191,8 +191,10 @@
     oklch(0.33 0.05 50) 100%
   );
 
-  --shadow-soft-value: 0 1px 2px oklch(0.1 0.02 155 / 0.5), 0 8px 24px -12px oklch(0.1 0.02 155 / 0.7);
-  --shadow-lift-value: 0 2px 6px oklch(0.1 0.02 155 / 0.55), 0 22px 48px -20px oklch(0.1 0.02 155 / 0.8);
+  --shadow-soft-value:
+    0 1px 2px oklch(0.1 0.02 155 / 0.5), 0 8px 24px -12px oklch(0.1 0.02 155 / 0.7);
+  --shadow-lift-value:
+    0 2px 6px oklch(0.1 0.02 155 / 0.55), 0 22px 48px -20px oklch(0.1 0.02 155 / 0.8);
 }
 
 @layer base {

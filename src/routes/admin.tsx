@@ -223,9 +223,9 @@ function AccessDenied({ email }: { email: string }) {
               Un administrateur doit ajouter une ligne dans la table{" "}
               <code className="rounded bg-background px-1 py-0.5 text-xs">user_roles</code> avec
               votre identifiant utilisateur et le rôle{" "}
-              <code className="rounded bg-background px-1 py-0.5 text-xs">admin</code>. Pour le
-              tout premier compte, cette ligne se crée directement depuis le tableau de bord de la
-              base de données.
+              <code className="rounded bg-background px-1 py-0.5 text-xs">admin</code>. Pour le tout
+              premier compte, cette ligne se crée directement depuis le tableau de bord de la base
+              de données.
             </p>
           </div>
           <Button
@@ -252,9 +252,6 @@ const emptyForm: ItemInsert = {
   stock: 0,
   available: true,
   images: [],
-  material: "",
-  dimensions: "",
-  origin: "",
 };
 
 function AdminDashboard({ email }: { email: string }) {
@@ -287,7 +284,7 @@ function AdminDashboard({ email }: { email: string }) {
       if (error) throw error;
     },
     onSuccess: () => {
-      toast.success("Article supprimé");
+      toast.success("Produit supprimé");
       void queryClient.invalidateQueries({ queryKey: ["admin-items"] });
       void queryClient.invalidateQueries({ queryKey: ["catalogue"] });
       setToDelete(null);
@@ -305,13 +302,17 @@ function AdminDashboard({ email }: { email: string }) {
             <p className="mt-1 text-sm text-muted-foreground">Connecté en tant que {email}</p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" className="rounded-full" onClick={() => void supabase.auth.signOut()}>
+            <Button
+              variant="outline"
+              className="rounded-full"
+              onClick={() => void supabase.auth.signOut()}
+            >
               <LogOut className="h-4 w-4" aria-hidden="true" />
               Déconnexion
             </Button>
             <Button className="rounded-full" onClick={() => setCreating(true)}>
               <Plus className="h-4 w-4" aria-hidden="true" />
-              Nouvel article
+              Nouveau produit
             </Button>
           </div>
         </div>
@@ -319,15 +320,27 @@ function AdminDashboard({ email }: { email: string }) {
         <div className="surface mt-8 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full min-w-160 text-sm">
-              <caption className="sr-only">Liste des articles du catalogue</caption>
+              <caption className="sr-only">Liste des produits du catalogue</caption>
               <thead>
                 <tr className="border-b border-border text-left text-muted-foreground">
-                  <th scope="col" className="px-5 py-3 font-medium">Article</th>
-                  <th scope="col" className="px-5 py-3 font-medium">Catégorie</th>
-                  <th scope="col" className="px-5 py-3 font-medium">Prix</th>
-                  <th scope="col" className="px-5 py-3 font-medium">Stock</th>
-                  <th scope="col" className="px-5 py-3 font-medium">Ajouté le</th>
-                  <th scope="col" className="px-5 py-3 text-right font-medium">Actions</th>
+                  <th scope="col" className="px-5 py-3 font-medium">
+                    Produit
+                  </th>
+                  <th scope="col" className="px-5 py-3 font-medium">
+                    Catégorie
+                  </th>
+                  <th scope="col" className="px-5 py-3 font-medium">
+                    Prix
+                  </th>
+                  <th scope="col" className="px-5 py-3 font-medium">
+                    Stock
+                  </th>
+                  <th scope="col" className="px-5 py-3 font-medium">
+                    Ajouté le
+                  </th>
+                  <th scope="col" className="px-5 py-3 text-right font-medium">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -394,7 +407,7 @@ function AdminDashboard({ email }: { email: string }) {
       <AlertDialog open={toDelete !== null} onOpenChange={(open) => !open && setToDelete(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Supprimer cet article ?</AlertDialogTitle>
+            <AlertDialogTitle>Supprimer ce produit ?</AlertDialogTitle>
             <AlertDialogDescription>
               « {toDelete?.name} » sera retiré du catalogue, ainsi que ses photos. Cette action est
               irréversible.
@@ -441,9 +454,6 @@ function ItemDialog({
         price: item.price,
         stock: item.stock,
         available: item.available,
-        material: item.material,
-        dimensions: item.dimensions,
-        origin: item.origin,
       });
       setImages(item.images);
     } else {
@@ -466,7 +476,7 @@ function ItemDialog({
       }
     },
     onSuccess: () => {
-      toast.success(item ? "Article mis à jour" : "Article créé");
+      toast.success(item ? "Produit mis à jour" : "Produit créé");
       void queryClient.invalidateQueries({ queryKey: ["admin-items"] });
       void queryClient.invalidateQueries({ queryKey: ["catalogue"] });
       onClose();
@@ -507,7 +517,7 @@ function ItemDialog({
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle className="font-display text-xl">
-            {item ? "Modifier l'article" : "Nouvel article"}
+            {item ? "Modifier le produit" : "Nouveau produit"}
           </DialogTitle>
           <DialogDescription>
             Les champs marqués d'un astérisque sont obligatoires.
@@ -581,33 +591,6 @@ function ItemDialog({
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-3">
-            <div className="space-y-2">
-              <Label htmlFor="item-material">Matière</Label>
-              <Input
-                id="item-material"
-                value={form.material ?? ""}
-                onChange={(event) => setForm({ ...form, material: event.target.value })}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="item-dimensions">Dimensions</Label>
-              <Input
-                id="item-dimensions"
-                value={form.dimensions ?? ""}
-                onChange={(event) => setForm({ ...form, dimensions: event.target.value })}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="item-origin">Provenance</Label>
-              <Input
-                id="item-origin"
-                value={form.origin ?? ""}
-                onChange={(event) => setForm({ ...form, origin: event.target.value })}
-              />
-            </div>
-          </div>
-
           <div className="flex items-center gap-3 rounded-xl border border-border p-3">
             <Switch
               id="item-available"
@@ -615,7 +598,7 @@ function ItemDialog({
               onCheckedChange={(checked) => setForm({ ...form, available: checked })}
             />
             <Label htmlFor="item-available" className="cursor-pointer">
-              Article disponible à la commande
+              Produit disponible à la commande
             </Label>
           </div>
 
@@ -623,9 +606,16 @@ function ItemDialog({
             <Label htmlFor="item-images">Photos</Label>
             <div className="flex flex-wrap gap-2">
               {images.map((path, index) => (
-                <div key={path} className="relative h-24 w-24 overflow-hidden rounded-xl border border-border">
+                <div
+                  key={path}
+                  className="relative h-24 w-24 overflow-hidden rounded-xl border border-border"
+                >
                   {previews[index] ? (
-                    <img src={previews[index] as string} alt="" className="h-full w-full object-cover" />
+                    <img
+                      src={previews[index] as string}
+                      alt=""
+                      className="h-full w-full object-cover"
+                    />
                   ) : (
                     <span className="shimmer flex h-full w-full items-center justify-center">
                       <ImageOff className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
@@ -667,7 +657,7 @@ function ItemDialog({
             Annuler
           </Button>
           <Button type="submit" form="item-form" disabled={saveMutation.isPending || uploading}>
-            {item ? "Enregistrer" : "Créer l'article"}
+            {item ? "Enregistrer" : "Créer le produit"}
           </Button>
         </DialogFooter>
       </DialogContent>

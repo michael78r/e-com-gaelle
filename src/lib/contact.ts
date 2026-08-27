@@ -4,18 +4,18 @@
  */
 
 export const SITE_NAME = "Whisly";
-export const SITE_TAGLINE = "Boutique en ligne d'objets pour la maison";
+export const SITE_TAGLINE = "Boutique gourmande en ligne";
 
 export const CONTACT = {
-  phone: "+261 34 12 345 67",
-  phoneHref: "tel:+261341234567",
-  email: "contact@whisly.mg",
-  emailHref: "mailto:contact@whisly.mg",
-  whatsapp: "261341234567",
+  phone: "+261 33 76 176 63",
+  phoneHref: "tel:+261337617663",
+  email: "gaellerakotobe9@gmail.com",
+  emailHref: "mailto:gaellerakotobe9@gmail.com",
+  whatsapp: "261337617663",
   city: "Antananarivo, Madagascar",
 } as const;
 
-/** Lien WhatsApp pré-rempli avec le nom de l'article. */
+/** Lien WhatsApp pré-rempli avec le nom du produit. */
 export function whatsappOrderLink(itemName: string, price?: number): string {
   const parts = [
     `Bonjour ${SITE_NAME},`,
@@ -25,7 +25,7 @@ export function whatsappOrderLink(itemName: string, price?: number): string {
   return `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(parts.join(" "))}`;
 }
 
-/** Lien WhatsApp générique, sans article. */
+/** Lien WhatsApp générique, sans produit. */
 export function whatsappContactLink(): string {
   return `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(
     `Bonjour ${SITE_NAME}, j'ai une question.`,

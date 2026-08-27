@@ -36,7 +36,7 @@ export async function fetchCatalogue({
   if (category) query = query.eq("category", category);
   if (q.trim()) {
     const term = `%${q.trim()}%`;
-    query = query.or(`name.ilike.${term},description.ilike.${term},material.ilike.${term}`);
+    query = query.or(`name.ilike.${term},description.ilike.${term}`);
   }
 
   const from = (page - 1) * pageSize;

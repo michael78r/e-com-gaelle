@@ -35,7 +35,7 @@ export function useImageUrls(paths: string[]): (string | null)[] {
   return results.map((result) => result.data ?? null);
 }
 
-/** Résout la première image d'un article (la vignette). */
+/** Résout la première image d'un produit (la vignette). */
 export function useCoverUrl(images: string[]): string | null {
   const urls = useImageUrls(images.slice(0, 1));
   return urls[0] ?? null;
