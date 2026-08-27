@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CatalogueIndexRouteImport } from './routes/catalogue.index'
+import { Route as CatalogueIdRouteImport } from './routes/catalogue.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +23,39 @@ const CatalogueIndexRoute = CatalogueIndexRouteImport.update({
   path: '/catalogue/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CatalogueIdRoute = CatalogueIdRouteImport.update({
+  id: '/catalogue/$id',
+  path: '/catalogue/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/catalogue/$id': typeof CatalogueIdRoute
   '/catalogue/': typeof CatalogueIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/catalogue/$id': typeof CatalogueIdRoute
   '/catalogue': typeof CatalogueIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/catalogue/$id': typeof CatalogueIdRoute
   '/catalogue/': typeof CatalogueIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/catalogue/'
+  fullPaths: '/' | '/catalogue/$id' | '/catalogue/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/catalogue'
-  id: '__root__' | '/' | '/catalogue/'
+  to: '/' | '/catalogue/$id' | '/catalogue'
+  id: '__root__' | '/' | '/catalogue/$id' | '/catalogue/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CatalogueIdRoute: typeof CatalogueIdRoute
   CatalogueIndexRoute: typeof CatalogueIndexRoute
 }
 
@@ -65,11 +75,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CatalogueIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/catalogue/$id': {
+      id: '/catalogue/$id'
+      path: '/catalogue/$id'
+      fullPath: '/catalogue/$id'
+      preLoaderRoute: typeof CatalogueIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CatalogueIdRoute: CatalogueIdRoute,
   CatalogueIndexRoute: CatalogueIndexRoute,
 }
 export const routeTree = rootRouteImport
